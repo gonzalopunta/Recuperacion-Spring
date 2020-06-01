@@ -18,7 +18,6 @@ public class Categoria {
 	@Id @GeneratedValue
 	private Long id;
 	private String nombre;
-	private String imagen;
 	
 	@ManyToOne
 	private Productos productos;

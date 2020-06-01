@@ -16,7 +16,6 @@ import com.example.DTO.CrearProductosDTO;
 import com.example.DTO.EditarProductosDTO;
 import com.example.entity.Productos;
 import com.example.errors.ProductoNotFoundException;
-import com.example.repository.ProductosRepository;
 import com.example.services.ProductosService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,26 +24,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductoController {
 
-	private final ProductosRepository productosRepository = null;
-	private final ProductosService productosService = null;
+	private final ProductosService productosService;
 	
-	@GetMapping("/producto/listatodo")
+	@GetMapping("/producto")
 	public List<Productos> obtenerTodos() {
-		return productosRepository.findAll();
+		return productosService.findAll();
 	}
 
 	@GetMapping("/producto/listauno/{id}")
 	public Productos obtenerUno(@PathVariable Long id) {
-		return productosRepository.findById(id).orElse(null);
+		return productosService.findById(id).orElse(null);
 	}
 
-	@PostMapping("/producto/anadir")
+	@PostMapping("/producto")
 	public ResponseEntity<Productos> nuevoProducto(@RequestBody CrearProductosDTO nuevo) {
-		System.out.println("entra");
 		return ResponseEntity.status(HttpStatus.CREATED).body(productosService.insertar(nuevo));
 	}
 
-	@PutMapping("/producto/editar/{id}")
+	@PutMapping("/producto/{id}")
 	public Productos editarProducto(@RequestBody EditarProductosDTO editar, @PathVariable Long id) {
 		
 		return productosService.findById(id).map (productoEditar -> {
@@ -56,11 +53,11 @@ public class ProductoController {
 
 	}
 
-	@DeleteMapping("/producto/borrar/{id}")
+	@DeleteMapping("/producto/{id}")
 	public Productos borrarProducto(@PathVariable Long id) {
-		if (productosRepository.existsById(id)) {
-			Productos result = productosRepository.findById(id).get();
-			productosRepository.deleteById(id);
+		if (productosService.findById(id) != null) {
+			Productos result = productosService.findById(id).get();
+			productosService.deleteById(id);
 			return result;
 		} else
 			return null;

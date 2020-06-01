@@ -9,20 +9,13 @@ import com.example.DTO.CrearProductosDTO;
 import com.example.entity.Productos;
 import com.example.repository.ProductosRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ProductosService extends BaseService<Productos, Long, ProductosRepository>{
 
-	@Autowired
-	ProductosRepository productosRepository;
-	CategoriaService categoriaService;
-	
-	public List<Productos> listarTodos() {
-		return productosRepository.findAll();
-	}
-	
-	public void listarPorId(Long id) {
-		productosRepository.getOne(id);
-	}
+	private final CategoriaService categoriaService;
 	
 	public Productos insertar(CrearProductosDTO p) {
 
@@ -34,13 +27,4 @@ public class ProductosService extends BaseService<Productos, Long, ProductosRepo
 				.build();
 		return this.save(nuevosProductos);
 	}
-	
-	public void borrarProducto(Productos p) {
-		productosRepository.delete(p);
-	}
-	
-	public Productos editar(Productos p) {
-		return productosRepository.save(p);
-	}
-
 }

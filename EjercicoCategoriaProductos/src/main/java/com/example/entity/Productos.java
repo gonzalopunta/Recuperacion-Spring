@@ -21,7 +21,7 @@ public class Productos {
 	private Long id;
 	private String nombre;
 	private String descripcion;
-	private Long precio;
+	private String precio;
 	
 	@ManyToOne
 	Categoria categoria;

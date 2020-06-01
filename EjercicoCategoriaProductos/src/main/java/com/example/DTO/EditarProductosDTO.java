@@ -9,5 +9,5 @@ public class EditarProductosDTO {
 
 	private String nombre;
 	private String descripcion;
-	private Long precio;
+	private String precio;
 }
