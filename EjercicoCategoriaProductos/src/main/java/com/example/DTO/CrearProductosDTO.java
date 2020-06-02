@@ -17,6 +17,7 @@ public class CrearProductosDTO {
 
 	@Id @GeneratedValue
 	private Long id;
+	
 	private String nombre;
 	private String descripcion;
 	private String precio;
