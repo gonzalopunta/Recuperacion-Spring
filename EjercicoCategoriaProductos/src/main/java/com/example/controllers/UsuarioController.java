@@ -10,13 +10,16 @@ import com.example.DTO.GetUsuarioDTO;
 import com.example.DTO.UsuarioDTOConverter;
 import com.example.services.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UsuarioController {
 	
-	private final UsuarioService usuarioService = new UsuarioService();
-	private final UsuarioDTOConverter usuarioDTOConverter = new UsuarioDTOConverter();
+	private final UsuarioService usuarioService;
+	private final UsuarioDTOConverter usuarioDTOConverter;
 	
 	@PostMapping("/")
 	public GetUsuarioDTO nuevoUsuario(@RequestBody CrearUsuarioDTO nuevoUsuario) {

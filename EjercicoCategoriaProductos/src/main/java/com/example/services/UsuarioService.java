@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository>{
 
-	private final PasswordEncoder passwordEncoder = null;
+	private final PasswordEncoder passwordEncoder;
 	
 	//Esta funcion lo que hace es buscar un usuario por su nombre de usuario si existe
 	public Optional<Usuario> findByUsername(String nombreUsuario){
