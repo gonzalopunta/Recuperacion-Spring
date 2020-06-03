@@ -3,27 +3,22 @@ package com.example.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Categoria {
+@Entity @AllArgsConstructor @NoArgsConstructor @Builder @Data @Getter @Setter
+public class Usuario {
 
 	@Id @GeneratedValue
-	private Long id;
+	private long id;
+	
+	private String nombreUsuario;
+	private String contrasena;
 	private String nombre;
-	private String imagen;
-	
-	@ManyToOne
-	Productos productos;
-	
-	
+	private boolean admin;
 }

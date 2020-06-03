@@ -1,12 +1,10 @@
-package com.example.entity;
+package com.example.DTO;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,16 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Categoria {
+public class CrearCategoriaDTO {
 
 	@Id @GeneratedValue
 	private Long id;
+	
 	private String nombre;
 	private String imagen;
-	
-	@ManyToOne
-	Productos productos;
-	
 	
 }
