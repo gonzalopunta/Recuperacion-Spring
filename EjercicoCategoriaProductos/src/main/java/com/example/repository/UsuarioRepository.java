@@ -8,7 +8,8 @@ import com.example.entity.Usuario;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+	
+	Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 
-	Optional<Usuario>findByUsername(String usuario);
 	
 }
