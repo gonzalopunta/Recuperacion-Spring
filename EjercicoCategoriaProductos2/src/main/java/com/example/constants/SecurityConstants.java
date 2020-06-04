@@ -1,7 +1,7 @@
 package com.example.constants;
 
 public final class SecurityConstants {
-	//URL para la autenticacion inicial con ("username": "user" y "password":"password2")
+	//URL para la autenticacion con ("username": "gonzalo" y "password":"contraseña")
     public static final String AUTH_LOGIN_URL = "/login";
     public static final String JWT_SECRET = "n2r5u8x/A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQeThWmZq4t7w!z%C*F-J@NcRf";
     // JWT token defaults

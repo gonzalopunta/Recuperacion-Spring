@@ -37,11 +37,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         setFilterProcessesUrl(SecurityConstants.AUTH_LOGIN_URL);
     }
 
+    //Con esto obtenemos el cuerpo de la peticion que la utilizaremos en la siguiente funcion para convertir 
+    //el cuerpo que se obtiene como un JSON y de ahi recoger el usuario y la contraseña que se le pasa 
+    //en el body en POSTMAN
     private String getRequestBody(final HttpServletRequest request) {
         final StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = request.getReader()) {
             if (reader == null) {
-                logger.debug("Request body could not be read because it's empty.");
+                logger.debug("El cuerpo de la peticion esta vacio");
                 return null;
             }
             String line;
@@ -55,7 +58,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
     
-    //Aqui el usuario va a intentar autenticarse 
+    //Aqui el usuario va a intentar autenticarse y nos devuelve el token en caso de que el usuario exista
     @Override
     public Authentication attemptAuthentication(@RequestBody HttpServletRequest request, HttpServletResponse response) {
         String body = getRequestBody(request);       
@@ -63,9 +66,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String, String> myMap = gson.fromJson(body, type);
-        
-        System.out.println(body);
-        System.out.println(myMap.get("username"));
         
     	String username = myMap.get("username");
         String password = myMap.get("password");
@@ -88,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         byte[] signingKey = SecurityConstants.JWT_SECRET.getBytes();
 
-        //Al token le indicamos datos como puede ser el tiempo de duracion del mismo, le establecemos el
+        //Al token le podemos poner datos como puede ser el tiempo de duracion del mismo, le establecemos el
         //nombre de usuario para que ese token pueda ser utilizado posteriormente si el token no ha
         //expirado todavia, etc...
         String token = Jwts.builder()

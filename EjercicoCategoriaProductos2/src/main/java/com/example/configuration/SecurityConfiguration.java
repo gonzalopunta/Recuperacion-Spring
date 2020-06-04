@@ -1,4 +1,5 @@
 package com.example.configuration;
+
 import com.example.constants.SecurityConstants;
 import com.example.security.JwtAuthenticationFilter;
 import com.example.security.JwtAuthorizationFilter;
@@ -19,42 +20,33 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // permite a cualquiera hacer esa petición
-        http.cors().and()
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers(SecurityConstants.AUTH_LOGIN_URL).permitAll()
-            .antMatchers("/productos").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-            .addFilter(new JwtAuthorizationFilter(authenticationManager()))
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		// permite a cualquiera hacer la peticion que se le indica
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers(SecurityConstants.AUTH_LOGIN_URL).permitAll()
+				.antMatchers("/productos").permitAll().anyRequest().authenticated().and()
+				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager())).sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
 
-    //Usuario y contraseña para iniciar sesion la primera vez
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication()
-            .withUser("user")
-            .password(passwordEncoder().encode("password2"))
-            .authorities("ROLE_USER");
-    }
+		auth.inMemoryAuthentication().withUser("gonzalo").password(passwordEncoder().encode("contraseña"))
+				.authorities("ROLE_USER");
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 
-        return source;
-    }
+		return source;
+	}
 }
