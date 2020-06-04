@@ -26,7 +26,7 @@ public class CategoriaController {
 	
 	private final CategoriaService categoriaService;
 	
-	@GetMapping("/categoria")
+	@GetMapping("/categorias")
 	public List<Categoria> obtenerTodos() {
 		return categoriaService.findAll();
 	}

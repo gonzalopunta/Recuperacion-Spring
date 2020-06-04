@@ -25,8 +25,8 @@ import lombok.RequiredArgsConstructor;
 public class ProductoController {
 
 	private final ProductosService productosService;
-	
-	@GetMapping("/producto")
+
+	@GetMapping("/productos")
 	public List<Productos> obtenerTodos() {
 		return productosService.findAll();
 	}
@@ -43,7 +43,7 @@ public class ProductoController {
 
 	@PutMapping("/producto/{id}")
 	public Productos editarProducto(@RequestBody EditarProductosDTO editar, @PathVariable Long id) {
-		
+
 		return productosService.findById(id).map (productoEditar -> {
 			productoEditar.setNombre(editar.getNombre());
 			productoEditar.setDescripcion(editar.getDescripcion());
